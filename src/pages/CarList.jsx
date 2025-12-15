@@ -9,7 +9,6 @@ export default function CarList() {
   const [cars, setCars] = useState([]);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const API_BASE = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_API_URL}/cars?search=${search}`)
@@ -34,57 +33,24 @@ export default function CarList() {
   };
 
   return (
-    <div style={{ padding: "30px 40px" }}>
+    <div className="car-list-container">
       {/* Title */}
-      <h1 style={{
-        fontSize: "46px",
-        fontWeight: 900,
-        marginBottom: "30px",
-        color: "#111",
-        textAlign: "center",
-        letterSpacing: "3px",
-        textTransform: "uppercase",
-        paddingBottom: "12px",
-        borderBottom: "2px solid rgba(0,0,0,0.15)",
-        width: "fit-content",
-        margin: "0 auto 35px",
-      }}>
-        59号二手车交易市场
-      </h1>
-
+      <h1 className="page-title">59号二手车交易市场</h1>
 
       {/* Search bar */}
-      <div style={{ marginBottom: 25, display: "flex", alignItems: "center", gap: 15 }}>
+      <div className="search-bar">
         <input
           type="text"
           placeholder="🔍 搜索品牌 / 型号..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: "12px 15px",
-            width: 300,
-            borderRadius: 10,
-            border: "1px solid #ccc",
-            fontSize: 16,
-            boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
-          }}
+          className="search-input"
         />
 
         {user && (
           <button
             onClick={() => navigate('/add')}
-            style={{
-              padding: "12px 18px",
-              background: "#28a745",
-              color: "white",
-              border: "none",
-              borderRadius: 8,
-              fontSize: 16,
-              cursor: "pointer",
-              transition: "0.2s",
-            }}
-            onMouseEnter={(e) => e.target.style.background = "#218838"}
-            onMouseLeave={(e) => e.target.style.background = "#28a745"}
+            className="add-car-btn"
           >
             ➕ 添加车辆
           </button>
@@ -92,66 +58,26 @@ export default function CarList() {
       </div>
 
       {/* Car cards */}
-      <div
-        style={{
-          display: "grid",
-          gap: 25,
-        }}
-        className="car-grid"
-      >
+      <div className="car-grid">
         {cars.map(car => (
           <div key={car.id} className="car-card">
             <img
               src={getImageUrl(car.image)}
               alt={car.model}
-              style={{
-                width: "100%",
-                height: 140,
-                objectFit: "cover",
-                borderRadius: 12,
-                marginBottom: 10
-              }}
+              className="car-image"
             />
 
-            <h3 style={{ margin: "5px 0", fontSize: 18, fontWeight: 600 }}>
-              {car.brand} {car.model}
-            </h3>
-
-            <p style={{ margin: "4px 0", color: "#555" }}>Year: {car.year}</p>
-            <p style={{ margin: "4px 0", color: "#555" }}>Mileage: {car.mileage} km</p>
-            <p style={{ margin: "8px 0", fontWeight: "bold", fontSize: 18 }}>
-              ${car.price}
-            </p>
+            <h3 className="car-title">{car.brand} {car.model}</h3>
+            <p className="car-info">Year: {car.year}</p>
+            <p className="car-info">Mileage: {car.mileage} km</p>
+            <p className="car-price">${car.price}</p>
 
             {user && (
-              <div style={{ marginTop: 10, display: "flex", gap: 10 }}>
-                <button
-                  onClick={() => deleteCar(car.id)}
-                  style={{
-                    flex: 1,
-                    padding: "8px 0",
-                    background: "#dc3545",
-                    color: "white",
-                    border: "none",
-                    borderRadius: 8,
-                    cursor: "pointer",
-                  }}
-                >
+              <div className="car-actions">
+                <button onClick={() => deleteCar(car.id)} className="delete-btn">
                   🗑 删除
                 </button>
-
-                <button
-                  onClick={() => navigate(`/edit/${car.id}`)}
-                  style={{
-                    flex: 1,
-                    padding: "8px 0",
-                    background: "#fd7e14",
-                    color: "white",
-                    border: "none",
-                    borderRadius: 8,
-                    cursor: "pointer",
-                  }}
-                >
+                <button onClick={() => navigate(`/edit/${car.id}`)} className="edit-btn">
                   ✏ 编辑
                 </button>
               </div>
