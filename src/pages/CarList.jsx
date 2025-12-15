@@ -100,18 +100,7 @@ export default function CarList() {
         className="car-grid"
       >
         {cars.map(car => (
-          <div
-            key={car.id}
-            style={{
-              borderRadius: 15,
-              padding: 15,
-              background: "white",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-              transition: "0.2s",
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.03)"}
-            onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
-          >
+          <div key={car.id} className="car-card">
             <img
               src={getImageUrl(car.image)}
               alt={car.model}

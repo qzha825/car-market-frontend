@@ -1,3 +1,4 @@
+/* -------------------- 全局布局 -------------------- */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -33,15 +34,10 @@
   }
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
+/* -------------------- 卡片样式 -------------------- */
 .car-grid {
+  display: grid;
+  gap: 25px;
   grid-template-columns: repeat(1, 1fr); /* 手机默认 1 列 */
 }
 
@@ -57,3 +53,45 @@
   }
 }
 
+/* 卡片通用样式 */
+.car-card {
+  border-radius: 15px;
+  padding: 15px;
+  background: white;
+  color: #111; /* 默认文字颜色 */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: 0.2s;
+}
+
+/* 夜间模式适配 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #121212;
+    color: #eee;
+  }
+
+  .car-card {
+    background: #1e1e1e;
+    color: #eee;
+    box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+  }
+
+  input, button {
+    background: #333;
+    color: #eee;
+    border: 1px solid #555;
+  }
+
+  input::placeholder {
+    color: #aaa;
+  }
+}
+
+/* -------------------- 其他元素 -------------------- */
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
