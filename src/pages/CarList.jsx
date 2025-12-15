@@ -9,15 +9,16 @@ export default function CarList() {
   const [cars, setCars] = useState([]);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+  const API_BASE = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    axios.get(`http://localhost:5117/cars?search=${search}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/cars?search=${search}`)
       .then(res => setCars(res.data))
       .catch(err => console.error(err));
   }, [search]);
 
   const deleteCar = (id) => {
-    axios.delete(`http://localhost:5117/cars/${id}`, {
+    axios.delete(`${import.meta.env.VITE_API_URL}/cars/${id}`, {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
@@ -29,7 +30,7 @@ export default function CarList() {
   const getImageUrl = (image) => {
     if (!image) return "/default-car.jpg";
     if (image.startsWith("http://") || image.startsWith("https://")) return image;
-    return `http://localhost:5117/${image.replace(/^\/+/, "")}`;
+    return `${import.meta.env.VITE_API_URL}/${image.replace(/^\/+/, "")}`;
   };
 
   return (

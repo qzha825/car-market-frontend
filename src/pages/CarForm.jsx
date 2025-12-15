@@ -21,7 +21,7 @@ export default function CarForm() {
 
   useEffect(() => {
     if (isEditing) {
-      axios.get(`http://localhost:5117/cars?search=`)
+      axios.get(`${import.meta.env.VITE_API_URL}/cars?search=`)
         .then(res => {
           const car = res.data.find(c => c.id === Number(id));
           if (car) setFormCar(car);
@@ -38,7 +38,7 @@ export default function CarForm() {
     formData.append("file", file);
 
     try {
-      const res = await axios.post("http://localhost:5117/upload/image", formData, {
+      const res = await axios.post("${import.meta.env.VITE_API_URL}/upload/image", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
@@ -62,7 +62,7 @@ export default function CarForm() {
     };
 
     if (isEditing) {
-      axios.put(`http://localhost:5117/cars/${id}`, body, {
+      axios.put(`${import.meta.env.VITE_API_URL}/cars/${id}`, body, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
@@ -70,7 +70,7 @@ export default function CarForm() {
         .then(() => navigate('/'))
         .catch(err => console.error(err));
     } else {
-      axios.post("http://localhost:5117/cars", body, {
+      axios.post("${import.meta.env.VITE_API_URL}/cars", body, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
