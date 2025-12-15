@@ -38,7 +38,7 @@ export default function CarForm() {
     formData.append("file", file);
 
     try {
-      const res = await axios.post("${import.meta.env.VITE_API_URL}/upload/image", formData, {
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/upload/image`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
@@ -70,7 +70,7 @@ export default function CarForm() {
         .then(() => navigate('/'))
         .catch(err => console.error(err));
     } else {
-      axios.post("${import.meta.env.VITE_API_URL}/cars", body, {
+      axios.post(`${import.meta.env.VITE_API_URL}/cars`, body, {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
